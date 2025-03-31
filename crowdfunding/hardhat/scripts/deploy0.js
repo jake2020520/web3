@@ -27,7 +27,8 @@ async function main() {
     console.log("verification skipped..");
   }
 }
-// create verify function
+//  需要注册 etherscan.io  账号rabinp Web3@_;,
+// create verify function 就会看到网站上 contract 有对号
 async function verifyFundMe(addr, args) {
   await hre.run("verify:verify", {
     address: addr,

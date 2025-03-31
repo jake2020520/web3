@@ -10,6 +10,8 @@ npm i -D
 npm install hardhat -D
 // 创建一个 hardhat 项目,选择 js
 npx hardhat
+// 启动一个本地区块链
+npx hardhat node
 // 安装 chainlink/contracts
 npm install @chainlink/contracts
 // 编译contracts 下面所有 合约 结果在 artifacts 文件夹里面
@@ -26,9 +28,15 @@ npm install dotenv
 // 使用 加密变量
 //
 npm install -D  @chainlink/env-enc
-// 验证 部署  npx hardhat verify --network sepolia  0x5C3B01b4b4E6263f5b33Ec3EB66962F1A8a2e025 "300"
+// 验证 部署
 // 需要注册 etherscan.io  账号rabinp Web3@_;,
 // 就会看到网站上 contract 有对号
+npx hardhat verify --network sepolia  0x5C3B01b4b4E6263f5b33Ec3EB66962F1A8a2e025 "300"
+
+// headhat tasks 任务
+// npx hardhat help 就能看到可以执行的任务
+// 部署合约 npx hardhat deploy-crow --network sepolia
+// 交互合约 npx hardhat interact-crow --network sepolia --addr 0x7a1d4c2f3b5e8c6f9e4d5b5e5f5f5f5f5f5f5f5f(上一个task部署成功的合约地址)
 ```
 
 #### hardhat 介绍
