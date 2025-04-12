@@ -28,10 +28,20 @@ npx hardhat run scripts/deploy.ts --network localhost
 
 二、配置，前端 react 项目
 三、配置，文件存储的 arweave
+
 1、开发链 npx arlocal
+
 2、在https://arweave.app/add 创建新钱包，拿到 address
+
 3、在 设置 里面 ，配置 gateway 为：http://127.0.0.1:1984
-4、领取测试币，：http://127.0.0.1:1984/(address)/(balance)
+
+4、领取测试币，：http://127.0.0.1:1984/mint/(address)/(balance)
+
 5、挖矿,拿到测试币：http://127.0.0.1:1984/mine
+
 6、前端项目链接 arweave，查看 connectIpfs.js 里面的配置
-7、
+
+7、创建钱包：
+stone visa step husband utility order vicious physical clip unfair city moment
+
+iorO8xdEHzNViJhCXqVxnYuMmIdIC22LiIpdoOSizZ4

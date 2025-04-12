@@ -18,13 +18,9 @@ const Example = () => {
   const config = {
     zIndex: 0,
     readonly: true,
-
     theme: 'default',
- 
     height: 400,
-   
     imageDefaultWidth: 100,
-   
   };
   useEffect(() => {
     debugger
@@ -34,7 +30,6 @@ const Example = () => {
   }, []);
   return (
     <Layout>
-
       <Content
         style={{
           padding: 24,

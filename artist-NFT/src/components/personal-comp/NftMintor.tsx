@@ -27,6 +27,7 @@ function NftMintor() {
     try {
       const imageuri = await storeNftImage(file); //addToIpfs(file)
       messageBox("success", "", imageuri);
+      console.log("success storeNftImage ", "", imageuri);
       setUri(imageuri);
     } catch (error) {
       if (error instanceof Error) messageBox("danger", "", error.message);
@@ -40,7 +41,7 @@ function NftMintor() {
       const metauri = await storeMeta(json); //addToIpfs(json)
       messageBox("success", "", `ar ${metauri}`);
       const { success, tokenId } = await mintNFT(metauri);
-
+      console.log("mintNFT: ", success, tokenId);
       if (success && tokenId) {
         messageBox("success", "", `nft ${tokenId?.toString()}`);
         navigate("/personal/collectible-browse");

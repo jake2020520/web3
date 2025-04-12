@@ -63,14 +63,9 @@ const Example = () => {
   async function savePost() {
     debugger
     saveArticle(title, content)
-
-
   }
   async function publishPost() {
-
     await mintArticle()
-
-
   }
   const mintArticle = async () => {
     let uri = await storeArticle(content);//addToIpfs(content);
@@ -88,7 +83,6 @@ const Example = () => {
   }
   return (
     <Layout>
-
       <Content
         style={{
           padding: 24,
