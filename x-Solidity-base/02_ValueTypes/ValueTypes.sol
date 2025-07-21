@@ -78,7 +78,7 @@ contract ValueTypes {
     function or(uint8 x, uint8 y)public  pure returns(uint8){
         return x | y;
     }
-    // 异或  上下不同1，相同0
+    // 异或  上下不同1，相同 用的少
     // 0000 1100 => 12
     // 0000 0101 => 5
     // 0000 1001 => 9
