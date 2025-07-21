@@ -63,6 +63,35 @@ bool public _bool5 = _bool != _bool1; // 不相等
 
 ### 2. 整型
 
+### in‌t 含义‌：有符号整数，可以存储‌正数、负数、零‌。
+
+‌范围‌：
+- int8：-128 ~ 127
+- int16：-32768 ~ 32767
+- int256：-2²⁵⁵ ~ 2²⁵⁵-1 //1*2**255 会溢出
+
+‌特点‌：
+- 如果未指定位数（如 int），则默认为 int256。
+- ‌负数‌以 ‌补码（Two's Complement）‌ 形式存储。
+- 运算时可能会 ‌溢出‌（超出范围自动环绕）。
+
+### uint（无符号整数）‌
+‌含义‌：无符号整数，只能存储 ‌非负数‌（0 和正数）。
+
+‌范围‌：
+- uint8：0 ~ 255
+- uint16：0 ~ 65535
+- uint256：0 ~ 2²⁵⁶-1
+
+‌特点‌：
+如果未指定位数（如 uint），则默认为 uint256。
+运算时也可能 ‌溢出‌（如 uint8(255) + 1 会变成 0）。
+
+ **`溢出行为‌`**
+
+- Solidity 的整数运算默认 ‌会环绕溢出‌（uint8(255) + 1 = 0）。
+可以使用 SafeMath（OpenZeppelin）或 Solidity 0.8+ 的 require 检查来防止意外溢出。
+
 整型是 Solidity 中的整数，最常用的包括：
 
 ```solidity
@@ -106,15 +135,39 @@ uint256 public balance = _address1.balance; // balance of address
 
 ### 4. 定长字节数组
 
+1 字节 = 8 位（bit），每位存储一个二进制值（0 或 1）‌
+
+‌字符编码‌：
+
+- ASCII：1 字节 = 1 英文字符‌。
+- UTF-8：汉字占 2~4 字节‌。
+
 字节数组分为定长和不定长两种：
 
-- 定长字节数组: 属于值类型，数组长度在声明之后不能改变。根据字节数组的长度分为 `bytes1`, `bytes8`, `bytes32` 等类型。定长字节数组最多存储 32 bytes 数据，即`bytes32`。
-- 不定长字节数组: 属于引用类型（之后的章节介绍），数组长度在声明之后可以改变，包括 `bytes` 等。
+- 定长字节数组: 属于值类型，数组长度在声明之后不能改变。根据字节数组的长度分为 `bytes1`, `bytes8`, `bytes32` 等类型。定长字节数组最多存储 32 bytes 数据，即`bytes32`。仅支持固定长度操作（如索引访问），无法直接扩展或截断‌
+- 不定长字节数组: 属于引用类型（之后的章节介绍），数组长度在声明之后可以改变，包括 `bytes` 等。 支持动态操作（如 `push、pop`），但需注意 Gas 消耗‌。
+可与其他动态类型（如 string）隐式转换‌
+
 
 ```solidity
 // 固定长度的字节数组
+// _byte32 是一个长度为 32 字节的定长字节数组，内容是字符串 "MiniSolidity"，后面自动补零。
+// _byte32[0] 表示取出第 0 个字节（即第一个字节），类型为 bytes1。
+// 这里 _byte32[0] 的值就是 "M" 的 ASCII 码（16 进制为 0x4d）。
 bytes32 public _byte32 = "MiniSolidity"; 
 bytes1 public _byte = _byte32[0]; 
+
+// 动态字节数组
+bytes dynamicData = hex"a1b2c3";  // 长度可变
+dynamicData.push(0x45);          // 允许追加
+
+// 固定字节数组
+bytes32 fixedData = "solidity";  // 必须恰好 32 字节
+// fixedData.push(0x45);         // 编译错误（不可变）
+
+// 转换示例
+bytes32 fixedFromDynamic = bytes32(dynamicData);  // 截断或补零
+bytes dynamicFromFixed = bytes(fixedData);        // 转换为动态类型
 ```
 
 在上述代码中，字符串 `MiniSolidity` 以字节的方式存储进变量 `_byte32`。如果把它转换成 `16 进制`，就是：`0x4d696e69536f6c69646974790000000000000000000000000000000000000000`

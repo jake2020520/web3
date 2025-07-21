@@ -17,7 +17,9 @@ export const toArweave = async (entity, tags) => {
     const response = await arweave.transactions.post(tx);
 
     const url = ARWEAVE.url_prefix + tx.id;
-    alert(url)
+    // alert(url)
+    console.log("成功 arweave response00 ", response);
+    console.log("成功 arweave response11 ", url);
     return url;
 }
 export const storeNftImage = async (file) => {

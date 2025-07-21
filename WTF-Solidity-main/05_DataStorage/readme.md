@@ -23,6 +23,8 @@ tags:
 
 **引用类型(Reference Type)**：包括数组（`array`）和结构体（`struct`），由于这类变量比较复杂，占用存储空间大，我们在使用时必须要声明数据存储的位置。
 
+Evm的设计决定了 stack、memory和stateDB这三个对象，而且他们的gas消耗、性能什么的都不不一样。solidity是给开发者一个比较符合人机工程的语法，让开发者对这一块进行优化
+
 ## 数据位置
 
 Solidity数据存储位置有三类：`storage`，`memory`和`calldata`。不同存储位置的`gas`成本不同。`storage`类型的数据存在链上，类似计算机的硬盘，消耗`gas`多；`memory`和`calldata`类型的临时存在内存里，消耗`gas`少。整体消耗`gas`从多到少依次为：`storage` > `memory` > `calldata`。大致用法：
