@@ -27,7 +27,11 @@ contract ValueTypes {
     address payable public _address1 = payable(_address); // payable address，可以转账、查余额
     // 地址类型的成员
     uint256 public balance = _address1.balance; // balance of address
-
+     // bytes 是一种动态大小的字节数组类型，用于存储任意长度的二进制数据
+     // bytes 长度不固定（不同于 bytes1~bytes32），存储时会自动调整空间
+     // 32 字节 = 32 × 8 = 256 比特（bit）
+     // 1 字节 = 2 个十六进制字符 → 32 字节 = 64 个十六进制字符
+     // 示例：0x1234...ef（共 64 字符，前缀 0x 额外占用 2 字符）
     // 固定长度的字节数组
     // _byte32 是一个长度为 32 字节的定长字节数组，内容是字符串 "MiniSolidity"，后面自动补零。
     // _byte32[0] 表示取出第 0 个字节（即第一个字节），类型为 bytes1。

@@ -27,6 +27,10 @@ contract DataStorage {
         // _x[0] = 0 //这样修改会报错
         return(_x);
     }
+    // 错误：不能为基本类型指定 memory
+    //     function wrong(uint256 memory num) public pure {
+    //       // ...
+    //   }
 }
 
 contract Variables {
