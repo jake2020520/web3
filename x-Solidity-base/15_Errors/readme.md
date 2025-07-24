@@ -80,6 +80,10 @@ function transferOwner3(uint256 tokenId, address newOwner) public {
 }
 ```
 
+## 三者对比
+
+   ![15-2.png](./img/15-4.png)
+
 ## 在remix上验证
 
 1. 输入任意`uint256`数字和非0地址，调用`transferOwner1`，也就是`error`方法，控制台抛出了异常并显示我们自定义的`TransferNotOwner`。

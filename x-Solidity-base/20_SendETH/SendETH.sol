@@ -53,3 +53,44 @@ contract ReceiveETH {
         return address(this).balance;
     }
 }
+
+
+contract Bank{
+   receive() external payable {
+        // 接收ETH时触发
+    }
+    
+    function withdrawWithTransfer() external {
+        payable(msg.sender).transfer(1 ether);
+    }
+     
+     function withdrawWithSend() external {
+        bool success = payable(msg.sender).send(1 ether);
+        require(success, "send failed");
+     }
+     function withdrawWithCall() external {
+        (bool success, ) = payable(msg.sender).call{value: 1 ether}("");
+        require(success, "call failed");
+     }
+}
+
+contract BankUser{
+    Bank bank;
+    constructor(address payable _bank){
+        bank = Bank(_bank);
+    }
+    receive() external payable {
+        // 接收ETH时触发
+    }
+      function withdrawWithTransfer() external {
+        bank.withdrawWithTransfer();
+    }
+     
+     function withdrawWithSend() external {
+        bank.withdrawWithSend();
+     }
+     function withdrawWithCall() external {
+       bank.withdrawWithCall();
+        
+     }
+}
