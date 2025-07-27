@@ -69,3 +69,48 @@ contract ABIEncode{
         return (address(this).balance,msg.sender.balance);
     }
 }
+contract A11 {
+    function getBFunctionBytes4() external pure returns (bytes4) {
+        // 返回函数选择器 0xf36b7e20
+        return bytes4(keccak256("bFunction(uint256,string)"));
+    }
+    // num 100 message hello
+    // 0x00000000000000000000000000000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000568656c6c6f000000000000000000000000000000000000000000000000000000
+    function getParamsBytes(uint256 _num,string calldata _message) public pure returns(bytes memory){
+        return abi.encode(_num,_message);
+    }
+  
+    // 或者直接用这个方法 这个等价于 前两个函数的返回值。 函数和如参数的编码
+    function encodeWithSignature() public view returns(bytes memory result) {
+    // 0xf36b7e2000000000000000000000000000000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000568656c6c6f000000000000000000000000000000000000000000000000000000
+        result = abi.encodeWithSignature("bFunction(uint256,string)", 100, "hello");
+    }
+
+      // _b B11的合约地址
+    // data 上两个函数返回拼接的
+    // 0xf36b7e2000000000000000000000000000000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000568656c6c6f000000000000000000000000000000000000000000000000000000
+    // 执行完毕次函数，就改变了 B11里面的成员变量了
+    function callBFunction(address _b,bytes memory _data) public returns(bool){
+        // 调用B合约的函数
+        (bool success, bytes memory result) = _b.call(_data);
+        require(success, "Call failed");
+        return success;
+    }
+}
+contract B11 {
+    uint256 public num;
+    string public message;
+    event Log(uint256 num, string message);
+    
+    function bFunction(uint256 _num, string calldata _message) public returns (uint256, string memory) {
+        // 触发事件
+        emit Log(_num, _message);
+        num=_num;
+        message=_message;
+        return (num, message);
+    }
+    
+    function getBalance() external view returns (uint256) {
+        return address(this).balance;
+    }
+}
