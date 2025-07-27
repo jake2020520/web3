@@ -1,0 +1,50 @@
+第一章 初识智能合约
+ 在storage合约上添加整型数或其他数据类型的、public变量，编译部署，观察操作区变化
+第二章 
+1.合约构成 
+已有
+2. 数据类型
+尝试修改赋值判定算法课堂代码，尝试各种情况，加深理解判定规则
+3.综合案例
+上网搜索ERC20规范与接口
+https://docs.openzeppelin.com/contracts/4.x/erc20
+4.web3js合约访问
+为课程中合约增加一个函数，在UI中访问调用它
+
+第三章
+1. 静态调用
+上网搜索各种EVM网络上符合ERC20的合约，用课堂中的ERC20接口编译后用 at address功能，通过metamask调用合约函数
+2. 合约动态调用
+练习以下合约
+https://solidity-by-example.org/call/
+https://solidity-by-example.org/fallback/
+3.gas费与转账收款
+看一下这个例子：
+https://solidity-by-example.org/sending-ether/
+然后用我们课程中的“过滤器链条”模式分析以下其中的问题，哪种表达准确清晰？
+4.函数调用的边界性问题
+思考：怎样通过data向一个EOA发文本消息？
+
+第四章
+
+1.delegatecall
+https://solidity-by-example.org/app/write-to-any-slot/
+2.代理模式
+阅读源码：
+https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/proxy
+3. 库合约
+阅读源码
+https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/utils
+
+第五章
+1. 多重继承
+思考：
+D is B，C
+ E is C，B， 
+F is D，E
+上述F的继承关系可行吗？Remix中实验一下，并思考为什么
+2.汇编
+认真阅读一遍机器指令集
+利用Remix调试功能，观察函数执行时如何初始化自由内存指针
+
+

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+
+	<title>Insert title here</title>
+	<script src="web3.min.js"></script>
+	<script src="owner.js"></script>
+	<style>
+		body {
+			background-color: #5544aa;
+			background-image: url('images/b9.jpg');
+			text-align: center;
+		}
+
+		.div {
+			margin: 0 auto;
+
+			border: 1px solid #F00;
+			position: absolute;
+			top: 50%;
+			left: 40%;
+		}
+
+		.button {
+			background-color: #4CAF50;
+			/* Green */
+			border: 3;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 24px;
+			margin: 4px 2px;
+			cursor: pointer;
+			align: center;
+		}
+	</style>
+</head>
+
+<body>
+
+	<script type="text/javascript">
+		var myaccounts;
+		window.addEventListener('load', function () {
+			if (!window.web3) {//用来判断你是否安装了metamask
+				window.alert('Please install MetaMask first.');
+				return;
+			}
+			if (window.ethereum) {
+				ethereum.enable().then(function (accounts) {
+					myaccounts = accounts;
+					window.web3 = new Web3(ethereum);
+					// window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+
+
+				})
+					.catch(function (error) {
+						// Handle error. Likely the user rejected the login
+						console.error(error)
+					});
+
+
+			}
+
+		});
+
+
+
+
+		function getOwner() {
+
+		
+			var contractAddress = "0x157AA1c65518D6e1f2d00Ea75593B73A4CD41dE2";
+
+			var OwnerFactory = new web3.eth.Contract(owner_abi, contractAddress);
+			var getOwner = OwnerFactory.methods.getOwner();
+			getOwner.call(function (err, res) {
+				if (err) {
+					console.log("An error occured", err)
+					return
+				}
+				alert("The owner is: " + res)
+			});
+
+
+		}
+
+		function changeOwner() {
+			alert("changeOwner")
+			var newowner = document.getElementById("newowner").value;
+			var contractAddress = "0x157AA1c65518D6e1f2d00Ea75593B73A4CD41dE2";
+
+			var OwenerContract = new web3.eth.Contract(owner_abi,contractAddress);
+	    	var trans = OwenerContract.methods.changeOwner(newowner);
+
+		   	var me = myaccounts[0];
+			trans.send({from:me}).on('transactionHash', function(hash){
+                console.log(hash);
+			})
+			.on('receipt', function(receipt){
+			   console.log(receipt);
+			})
+			.on('confirmation', function(confirmationNumber, receipt){
+				alert(confirmationNumber)
+				  console.log(confirmationNumber);
+			})
+			.on('error', function(error, receipt) {
+				console.log(error);
+			});
+
+
+		}
+		function sign() {
+			alert("sign")
+
+		}
+
+
+
+	</script>
+	<div class="div">
+		<input type="button" onclick="javascropt:sign()" class="button" value="签名"></input>
+		<input type="button" onclick="javascropt:getOwner()" class="button" value="读合约数据"></input><br />
+		<input type="button" onclick="javascropt:changeOwner()" class="button" value="改变owner"></input>
+		<input type="text" id="newowner"></input>
+
+	</div>
+</body>
+
+</html>
