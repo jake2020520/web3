@@ -33,6 +33,10 @@ contract ERC20 is IERC20 {
     }
 
     // @dev 实现 `approve` 函数, 代币授权逻辑
+    // `approve` 函数允许一个地址授权另一个地址可以使用自己的代币
+    // 用者账户给`spender`账户授权 `amount`数量代币
+    // `allowance` 映射记录了每个地址对每个授权地址
+    // 的授权额度
     function approve(address spender, uint amount) public override returns (bool) {
         allowance[msg.sender][spender] = amount;
         emit Approval(msg.sender, spender, amount);
@@ -40,6 +44,21 @@ contract ERC20 is IERC20 {
     }
 
     // @dev 实现`transferFrom`函数，代币授权转账逻辑
+    // `transferFrom` 函数允许授权的地址从一个地址转账到另一个地址
+    // 需要先调用 `approve` 函数授权
+    // `allowance` 映射记录了每个地址对每个授权地址
+    // 的授权额度
+    // `transferFrom` 函数会减少授权额度
+    // 并且转移代币
+    // 注意：在调用 `transferFrom` 函数之前，必须先调用 `approve` 函数
+    // 来授权转账额度
+    // `transferFrom` 函数的调用者必须是授权地址
+    // `sender` 是被授权的地址，`recipient` 是接收地址，
+    // `amount` 是转账金额
+    // `allowance[sender][msg.sender]` 是授权地址对被授权地址
+    // 的授权额度
+    // `balanceOf[sender]` 是被授权地址的余额
+    // `balanceOf[recipient]` 是接收地址的余额
     function transferFrom(
         address sender,
         address recipient,
