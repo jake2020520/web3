@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[9303],{79303:(e,n,a)=>{a.r(n);var s=a(92042);a.n(s)().mock("/api_client/login",()=>({code:200,message:"OK",data:{loginUid:1e4,nickname:"兔子先生",token:"yyds2025"}}))}}]);

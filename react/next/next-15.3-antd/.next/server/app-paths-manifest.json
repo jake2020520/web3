@@ -1,0 +1,19 @@
+{
+  "/api_server_mock/getArticleList/route": "app/api_server_mock/getArticleList/route.js",
+  "/apple-icon.png/route": "app/apple-icon.png/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/icon.png/route": "app/icon.png/route.js",
+  "/api_server_mock/getArticleDetail/[id]/route": "app/api_server_mock/getArticleDetail/[id]/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/(entry)/@detailModal/(.)detail/[id]/page": "app/(entry)/@detailModal/(.)detail/[id]/page.js",
+  "/(entry)/detail/[id]/page": "app/(entry)/detail/[id]/page.js",
+  "/(entry)/home/page": "app/(entry)/home/page.js",
+  "/(entry)/about/@company1/email/page": "app/(entry)/about/@company1/email/page.js",
+  "/(entry)/about/@company2/tel/page": "app/(entry)/about/@company2/tel/page.js",
+  "/(entry)/about/@company2/email/page": "app/(entry)/about/@company2/email/page.js",
+  "/(entry)/about/@company1/tel/page": "app/(entry)/about/@company1/tel/page.js",
+  "/(entry)/about/@company2/page": "app/(entry)/about/@company2/page.js",
+  "/(entry)/about/@company1/page": "app/(entry)/about/@company1/page.js"
+}
