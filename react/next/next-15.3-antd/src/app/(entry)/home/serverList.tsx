@@ -11,6 +11,8 @@ type ItemType = {
 }
 
 export default function ServerList() {
+    // 异步组件 loading 处理方式
+    // 可以直接加个loading.tsx
     const List = async () => {
         const res = await apiReqs.getArticleList()
         if (res.success) {
