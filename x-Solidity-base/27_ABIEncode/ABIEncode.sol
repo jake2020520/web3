@@ -10,7 +10,11 @@ contract ABIEncode{
     function encode() public view returns(bytes memory result) {
         result = abi.encode(x, addr, name, array);
     }
-
+    // 使用abi.encodePacked进行编码，适用于需要更紧凑的字节表示的情况
+    // 注意：abi.encodePacked可能会导致碰撞，因此在处理动态类型时要小心
+    // 例如：abi.encodePacked("a", "b") 和 abi.encodePacked("ab") 会产生相同的结果
+    // 但在处理静态类型时，使用abi.encodePacked是安全的
+    // 例如：abi.encodePacked(uint256, address, string, uint[2]) 不会产生碰撞
     function encodePacked() public view returns(bytes memory result) {
         result = abi.encodePacked(x, addr, name, array);
     }
@@ -18,7 +22,7 @@ contract ABIEncode{
     function encodeWithSignature() public view returns(bytes memory result) {
         result = abi.encodeWithSignature("foo(uint256,address,string,uint256[2])", x, addr, name, array);
     }
-
+     // 使用函数选择器进行编码
     function encodeWithSelector() public view returns(bytes memory result) {
         result = abi.encodeWithSelector(bytes4(keccak256("foo(uint256,address,string,uint256[2])")), x, addr, name, array);
     }
