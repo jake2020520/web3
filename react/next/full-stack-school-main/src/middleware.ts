@@ -1,6 +1,6 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { routeAccessMap } from "./lib/settings";
 import { NextResponse } from "next/server";
+import { routeAccessMap } from "./lib/settings";
 
 const matchers = Object.keys(routeAccessMap).map((route) => ({
   matcher: createRouteMatcher([route]),
@@ -11,9 +11,10 @@ console.log(matchers);
 
 export default clerkMiddleware((auth, req) => {
   // if (isProtectedRoute(req)) auth().protect()
-
+  // 这是 https://dashboard.clerk.com/apps/app_31Dxed4Wx1lAhfhkh7seurEq2D1/instances/ins_31DxeeEVOyWIzUOpyYWmX2EFIvm/sessions
+  // sessions 的配置
   const { sessionClaims } = auth();
-
+  console.log("Session Claims:", sessionClaims);
   const role = (sessionClaims?.metadata as { role?: string })?.role;
 
   for (const { matcher, allowedRoles } of matchers) {

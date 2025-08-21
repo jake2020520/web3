@@ -6,6 +6,7 @@ import "../34_ERC721/IERC721Receiver.sol";
 import "../34_ERC721/WTFApe.sol";
 
 contract NFTSwap is IERC721Receiver {
+    receive() external payable {}
     event List(
         address indexed seller,
         address indexed nftAddr,

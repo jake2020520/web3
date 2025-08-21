@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { clerkClient } from "@clerk/nextjs/server";
 import {
   ClassSchema,
   ExamSchema,
@@ -9,7 +9,6 @@ import {
   TeacherSchema,
 } from "./formValidationSchemas";
 import prisma from "./prisma";
-import { clerkClient } from "@clerk/nextjs/server";
 
 type CurrentState = { success: boolean; error: boolean };
 
@@ -142,17 +141,18 @@ export const createTeacher = async (
   data: TeacherSchema
 ) => {
   try {
-    const user = await clerkClient.users.createUser({
-      username: data.username,
-      password: data.password,
-      firstName: data.name,
-      lastName: data.surname,
-      publicMetadata:{role:"teacher"}
-    });
+    // const user = await clerkClient.users.createUser({
+    //   username: data.username,
+    //   password: data.password,
+    //   firstName: data.name,
+    //   lastName: data.surname,
+    //   publicMetadata:{role:"teacher"}
+    // });
 
     await prisma.teacher.create({
       data: {
-        id: user.id,
+        // id: user.id,
+        id: Math.floor(Math.random() * 1000000).toString(), // Temporary ID generation
         username: data.username,
         name: data.name,
         surname: data.surname,
@@ -231,7 +231,7 @@ export const deleteTeacher = async (
 ) => {
   const id = data.get("id") as string;
   try {
-    await clerkClient.users.deleteUser(id);
+    // await clerkClient.users.deleteUser(id);
 
     await prisma.teacher.delete({
       where: {
@@ -267,7 +267,7 @@ export const createStudent = async (
       password: data.password,
       firstName: data.name,
       lastName: data.surname,
-      publicMetadata:{role:"student"}
+      publicMetadata: { role: "student" },
     });
 
     await prisma.student.create({
