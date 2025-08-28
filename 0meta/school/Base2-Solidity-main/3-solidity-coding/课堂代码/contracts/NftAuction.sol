@@ -53,15 +53,14 @@ contract NftAuction is Initializable, UUPSUpgradeable {
         admin = msg.sender;
     }
 
-    function setPriceFeed(
-        address tokenAddress,
-        address _priceFeed
-    ) public {
+    // 入参：资产地址，链上资产价格地址
+    function setPriceFeed(address tokenAddress, address _priceFeed) public {
         priceFeeds[tokenAddress] = AggregatorV3Interface(_priceFeed);
     }
 
     // ETH -> USD => 1766 7512 1800 => 1766.75121800
     // USDC -> USD => 9999 4000 => 0.99994000
+    // 入参：资产地址
     function getChainlinkDataFeedLatestAnswer(
         address tokenAddress
     ) public view returns (int) {
@@ -92,7 +91,11 @@ contract NftAuction is Initializable, UUPSUpgradeable {
 
         // 转移NFT到合约
         // IERC721(_nftAddress).approve(address(this), _tokenId);
-        IERC721(_nftAddress).safeTransferFrom(msg.sender, address(this), _tokenId);
+        IERC721(_nftAddress).safeTransferFrom(
+            msg.sender,
+            address(this),
+            _tokenId
+        );
 
         auctions[nextAuctionId] = Auction({
             seller: msg.sender,
@@ -131,19 +134,22 @@ contract NftAuction is Initializable, UUPSUpgradeable {
         );
         // 判断出价是否大于当前最高出价
 
-
         uint payValue;
         if (_tokenAddress != address(0)) {
             // 处理 ERC20
             // 检查是否是 ERC20 资产
-            payValue = amount * uint(getChainlinkDataFeedLatestAnswer(_tokenAddress));
+            payValue =
+                amount *
+                uint(getChainlinkDataFeedLatestAnswer(_tokenAddress));
         } else {
             // 处理 ETH
             amount = msg.value;
 
-            payValue = amount * uint(getChainlinkDataFeedLatestAnswer(address(0)));
+            payValue =
+                amount *
+                uint(getChainlinkDataFeedLatestAnswer(address(0)));
         }
-        
+
         uint startPriceValue = auction.startPrice *
             uint(getChainlinkDataFeedLatestAnswer(auction.tokenAddress));
 
@@ -157,7 +163,11 @@ contract NftAuction is Initializable, UUPSUpgradeable {
 
         // 转移 ERC20 到合约
         if (_tokenAddress != address(0)) {
-            IERC20(_tokenAddress).transferFrom(msg.sender, address(this), amount);
+            IERC20(_tokenAddress).transferFrom(
+                msg.sender,
+                address(this),
+                amount
+            );
         }
 
         // 退还前最高价
@@ -173,7 +183,7 @@ contract NftAuction is Initializable, UUPSUpgradeable {
                 );
             }
         }
-        
+
         auction.tokenAddress = _tokenAddress;
         auction.highestBid = amount;
         auction.highestBidder = msg.sender;
