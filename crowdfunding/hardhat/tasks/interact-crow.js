@@ -10,6 +10,8 @@ task("interact-crow", "interact with crow contract")
     const [firstAccount, secondAccount] = await ethers.getSigners();
 
     // fund contract with first account
+    // 第一个账号给合约转账0.0021 ether
+    // 合约收到0.0021 ether
     const fundTx = await crow.fund({ value: ethers.parseEther("0.0021") });
     await fundTx.wait();
 

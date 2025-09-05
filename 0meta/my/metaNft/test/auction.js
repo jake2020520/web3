@@ -12,6 +12,7 @@ async function main() {
   await deployments.fixture(["deployNftAuction"]);
 
   const nftAuctionProxy = await deployments.get("NftAuctionProxy");
+  // 
   const nftAuction = await ethers.getContractAt(
     "NftAuction",
     nftAuctionProxy.address

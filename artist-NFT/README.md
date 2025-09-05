@@ -16,8 +16,8 @@ npx hardhat
 npx hardhat node
 // 本地测试
 npx hardhat test --network localhost
-//  指定网络 部署合约 本地网络
-npx hardhat run scripts/deploy.ts --network localhost
+//  指定网络 部署合约 本地网络 //npx hardhat deploy // 创建了 deploy task
+npx hardhat run scripts/deploy.ts --network localhost   
 // 配置matemask 本地网络，添加 本地网络提供的两个账号
 
 ```

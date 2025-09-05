@@ -9,6 +9,8 @@ const nextConfig = {
       "gola-nft-marketplace.infura-ipfs.io",
       dedicatedEndPoint1,
       "gateway.pinata.cloud",
+      "copper-zippy-woodpecker-824.mypinata.cloud",
+      "encrypted-tbn0.gstatic.com",
     ],
 
     // remotePatterns: [

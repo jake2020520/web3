@@ -1,0 +1,3 @@
+- 先构建 npx create-next-app@latest
+- npx hardhat run scripts/deploy.js --network localhost
+- npx hardhat test
