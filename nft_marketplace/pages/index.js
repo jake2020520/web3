@@ -1,10 +1,10 @@
-import { useEffect, useState, useRef, useContext } from "react";
-import Image from "next/image";
 import { useTheme } from "next-themes";
+import Image from "next/image";
+import { useContext, useEffect, useRef, useState } from "react";
 
-import { NFTContext } from "../context/NFTContext";
-import { Banner, CreatorCard, Loader, NFTCard, SearchBar } from "../components";
 import images from "../assets";
+import { Banner, CreatorCard, Loader, NFTCard, SearchBar } from "../components";
+import { NFTContext } from "../context/NFTContext";
 import { getCreators } from "../utils/getTopCreators";
 import { shortenAddress } from "../utils/shortenAddress";
 
@@ -102,7 +102,7 @@ const Home = () => {
 
   const topCreators = getCreators(nftsCopy);
 
-  console.log(topCreators);
+  console.log("topCreators: ", topCreators);
 
   return (
     <div className="flex justify-center sm:px-4 p-12">
@@ -142,7 +142,9 @@ const Home = () => {
                     <CreatorCard
                       key={creator.seller}
                       rank={i + 1}
-                      creatorImage={images[`creator${i + 1}`]}
+                      creatorImage={
+                        images[`creator${i + 1}`] || images.creator1
+                      }
                       creatorName={shortenAddress(creator.seller)}
                       creatorEths={creator.sum}
                     />

@@ -60,11 +60,21 @@ export const NFTProvider = ({ children }) => {
     const subdomain = "https://gola-nft-marketplace.infura-ipfs.io";
     try {
       // console.log(file);
-      const added = await client.current.add({ content: file });
+      // const added = await client.current.add({ content: file });
+      // const url = `${subdomain}/ipfs/${added.path}`;
+      // return url;
 
-      const url = `${subdomain}/ipfs/${added.path}`;
-
-      return url;
+      const data = new FormData();
+      data.set("file", file);
+      // data.set("field1", "data1");
+      const uploadRequest = await fetch("/api/files", {
+        method: "POST",
+        body: data,
+      });
+      const response = await uploadRequest.json();
+      console.log("uploadRequest: ---", response);
+      return response.data.path;
+      // return "https://turquoise-used-flyingfish-346.mypinata.cloud/ipfs/bafkreifisebiadl3ycfstsvdwkzdlypym4vqgs2ohiw7rad7ddsqhhqxqq";
     } catch (error) {
       console.error("Error uploading to file to IPFS. Details: ", error);
     }
@@ -109,6 +119,7 @@ export const NFTProvider = ({ children }) => {
 
     setIsLoadingNFT(true);
     await transaction.wait();
+    setIsLoadingNFT(false);
   };
 
   const fetchNFTs = async () => {
@@ -137,7 +148,7 @@ export const NFTProvider = ({ children }) => {
           tokenId: tokenId.toNumber(),
           seller,
           owner,
-          image,
+          image: image || tokenURI,
           name,
           description,
           tokenURI,
@@ -157,10 +168,21 @@ export const NFTProvider = ({ children }) => {
     const subdomain = "https://gola-nft-marketplace.infura-ipfs.io";
     try {
       // console.log(data);
-      const added = await client.current.add({ content: data });
-      const url = `${subdomain}/ipfs/${added.path}`;
-      await createSale(url, price, false, null);
-      router.push("/");
+      // const added = await client.current.add({ content: data });
+      // const url = `${subdomain}/ipfs/${added.path}`;
+      // await createSale(url, price, false, null);
+      // router.push("/");
+      //-------------------------新逻辑----
+      // const uploadRequest = await fetch("/api/createNft", {
+      //   method: "POST",
+      //   body: data,
+      // });
+      // const response = await uploadRequest.json();
+      // console.log("uploadRequest: ---", response);
+      // const url = response.data.path;
+      console.log("url: fileUrl---", fileUrl);
+      setIsLoadingNFT(true);
+      await createSale(fileUrl, price, false, null);
     } catch (error) {
       console.error("Error uploading to file to IPFS. Details: ", error);
     }

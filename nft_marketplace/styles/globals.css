@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 /* ./styles/globals.css */
 @tailwind base;
@@ -6,7 +6,14 @@
 @tailwind utilities;
 
 .nft-gradient {
-  background: linear-gradient(101.12deg, #EB1484 27.35%, #C91CC3 99.99%, #C81CC5 100%, #C81CC5 100%);
+  background: linear-gradient(
+    101.12deg,
+    #00ced1 27.35%,
+    #20b2aa 99.99%,
+    #48d1cc 100%,
+    #48d1cc 100%
+  );
+  /* background: linear-gradient(101.12deg, #EB1484 27.35%, #C91CC3 99.99%, #C81CC5 100%, #C81CC5 100%); */
 }
 
 .white-bg {
@@ -47,7 +54,7 @@
 }
 
 /*  target the elemenent after the label*/
-.checkbox:checked+.label .ball {
+.checkbox:checked + .label .ball {
   transform: translateX(16px);
 }
 
